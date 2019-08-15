@@ -30,21 +30,22 @@ async function getRoomList() {
  * Returns Array list of rooms
  */
 async function getRandomRoom(id) {
-  const result = await knex.where({id}).select().from('rooms');
-  return map(result, (data) => {
-    return {
-      id: data.id,
-      locationAddress: data.location_address,
-      propertyType: data.property_type,
-      buildingName: data.building_name,
-      roomType: data.room_type,
-      roomFloor: data.room_floor,
-      roomCapacity: data.room_capacity,
-      equipments: JSON.parse(data.equipments),
-      hourlyRate: data.hourly_rate,
-      reserved: data.reserved,
-    };
-  });
+  const result = await knex
+      .where({id})
+      .select(
+          'id',
+          'location_address as locationAddress',
+          'property_type as propertyType',
+          'building_name as buildingName',
+          'room_type as roomType',
+          'room_floor as roomFloor',
+          'room_capacity as roomCapicity',
+          'equipments as equipments',
+          'hourly_rate as hourlyRate',
+          'reserved'
+      )
+      .from('rooms').first();
+  return result;
 }
 
 // eslint-disable-next-line require-jsdoc

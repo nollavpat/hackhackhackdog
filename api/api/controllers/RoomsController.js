@@ -56,13 +56,11 @@ async function getRoom(req, res, next) {
  */
 async function getRoomByRandomNum(req, res, next) {
   const roomList = [];
-  let room;
-  const rand = Math.trunc(Math.random() * 5);
+  let r1;
+  let r2;
   try {
-    for (let i = 1; i <=2; i++) {
-      room = await getRandomRoom(rand);
-      roomList.push(room);
-    }
+    r1 = await getRandomRoom(Math.trunc(Math.random() * 5));
+    r2 = await getRandomRoom(Math.trunc(Math.random() * 5));
   } catch (dbError) {
     console.log(dbError.messsage);
   }
@@ -70,7 +68,7 @@ async function getRoomByRandomNum(req, res, next) {
   res.locals.respObj = new HttpSuccess(
       200,
       'Successfully retrieved room details',
-      roomList
+      {roomList: [r1, r2]}
   );
   return next();
 }
