@@ -6,7 +6,7 @@ import axios from 'axios';
 import Banner from './Banner';
 import {getRandomSeed} from '../randomSeeds';
 
-const Card = ({location, image, equipments}) => (
+const Card = ({location, image, equipments, history, details}) => (
   <div
     style={{
       display: 'flex',
@@ -25,7 +25,18 @@ const Card = ({location, image, equipments}) => (
           <li key={i}>{e}</li>
         ))}
       </ul>
-      <Button size="small">Reserve now</Button>
+      <Button
+        size="small"
+        onClick={() => {
+          history.push('/room', {
+            openLocation: location,
+            openDetails: details,
+            openEquipments: JSON.parse(equipments),
+          });
+        }}
+      >
+        Reserve now
+      </Button>
     </div>
   </div>
 );
@@ -151,14 +162,24 @@ const ResultRoom = ({history}) => {
           paddingLeft: '10px',
         }}
       >
-        {result.map((data, i) => data && (
-          <Card
-            key={i}
-            location={data.locationAddress}
-            image={getRandomSeed().image}
-            equipments={data.equipments}
-          />
-        ))}
+        {result.map(
+            (data, i) =>
+              data && (
+                <Card
+                  key={i}
+                  location={data.locationAddress}
+                  image={getRandomSeed().image}
+                  equipments={data.equipments}
+                  details={[
+                    `Building name: ${data.buildingName}`,
+                    `Property Type: ${data.propertyType}`,
+                    `Room Capacity: ${data.roomCapicity}`,
+                    `Room Floor: ${data.roomFloor}`,
+                  ]}
+                  history={history}
+                />
+              )
+        )}
       </div>
     </div>
   );

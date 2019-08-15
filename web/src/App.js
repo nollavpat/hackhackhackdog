@@ -5,6 +5,7 @@ import Index from './components/Index';
 import SearchRoom from './components/SearchRoom';
 import EnlistRoom from './components/EnlistRoom';
 import ResultRoom from './components/ResultRoom';
+import Room from './components/Room';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Route path="/search" component={SearchRoom} />
       <Route path="/enlist" component={EnlistRoom} />
       <Route path="/result" component={ResultRoom} />
+      <Route path="/room" component={Room} />
     </Router>
   );
 };
