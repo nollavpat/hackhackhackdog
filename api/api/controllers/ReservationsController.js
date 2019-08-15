@@ -2,6 +2,7 @@ require('app-module-path').addPath(require('app-root-path').toString());
 const {
   addNewReservation,
 } = require('api/repositories/ReservationsRepository');
+const {getRoomById} = require('api/repositories/RoomsRepository.js');
 const {calendarService} = require('api/utilities/CalendarServiceUtil.js');
 
 const HttpSuccess = require('api/responses/HttpSuccess.js');
@@ -22,16 +23,21 @@ async function PostReservations(req, res, next) {
   } = req.body;
 
   try {
+    //  GET ROOM DETAILS
+    const room = await getRoomById(roomId);
+    if (!room) {
+      console.log('Meeting room not found');
+    }
     // ADDING EVENT TO GOOGLE CALENDAR
     await calendarService.addEvent(
         organizer,
         summary,
         description,
         attendees,
-        10,
+        room.roomCapacity,
         dateFrom,
         dateTo,
-        true,
+        true
     );
     // SAVING TO DATABASE
     await addNewReservation(

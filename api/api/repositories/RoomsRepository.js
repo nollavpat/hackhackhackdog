@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 require('app-module-path').addPath(require('app-root-path').toString());
 require('dotenv').config();
 
@@ -25,9 +26,7 @@ async function getRoomList() {
   });
 }
 
-/**
- *
- */
+// eslint-disable-next-line require-jsdoc
 async function getRoomById(id) {
   const data = await knex
       .where({id})
