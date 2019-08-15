@@ -1,5 +1,9 @@
 require('app-module-path').addPath(require('app-root-path').toString());
-const {getRoomList, addRoom, getRoomById} = require('api/repositories/RoomsRepository.js');
+const {
+  getRoomList,
+  addRoom,
+  getRoomById,
+} = require('api/repositories/RoomsRepository.js');
 const HttpSuccess = require('api/responses/HttpSuccess.js');
 
 /**
@@ -74,10 +78,7 @@ async function postRoom(req, res, next) {
   } catch (dbError) {
     console.log(dbError.message);
   }
-  res.locals.respObj = new HttpSuccess(
-      200,
-      'Successfully added new room',
-  );
+  res.locals.respObj = new HttpSuccess(200, 'Successfully added new room');
   return next();
 }
 

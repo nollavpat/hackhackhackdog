@@ -29,16 +29,21 @@ async function PostReservations(req, res, next) {
       console.log('Meeting room not found');
     }
     // ADDING EVENT TO GOOGLE CALENDAR
-    await calendarService.addEvent(
-        organizer,
-        summary,
-        description,
-        attendees,
-        room.roomCapacity,
-        dateFrom,
-        dateTo,
-        true
-    );
+    try {
+      await calendarService.addEvent(
+          organizer,
+          summary,
+          description,
+          attendees,
+          room.locationAddress,
+          room.roomCapacity,
+          dateFrom,
+          dateTo,
+          true
+      );
+    } catch (reserveError) {
+      console.log('Cannot add new event to calendar');
+    }
     // SAVING TO DATABASE
     await addNewReservation(
         roomId,
