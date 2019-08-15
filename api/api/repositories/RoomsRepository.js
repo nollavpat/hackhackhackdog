@@ -27,6 +27,28 @@ async function getRoomList() {
 
 /**
  *
+ */
+async function getRoomById(id) {
+  const data = await knex
+      .where({id})
+      .select()
+      .from('rooms')
+      .first();
+  return {
+    locationAddress: data.location_address,
+    propertyType: data.property_type,
+    buildingName: data.building_name,
+    roomType: data.room_type,
+    roomFloor: data.room_floor,
+    roomCapacity: data.room_capacity,
+    equipments: JSON.parse(data.equipments),
+    hourlyRate: data.hourly_rate,
+    reserved: data.reserved,
+  };
+}
+
+/**
+ *
  * @param {String} locationAddress - Location address
  * @param {String} propertyType - Property type
  * @param {String} buildingName - Building name
@@ -59,6 +81,4 @@ async function addRoom(
   return await knex('rooms').insert(newRoom);
 }
 
-module.exports = {getRoomList, addRoom};
-
-
+module.exports = {getRoomList, addRoom, getRoomById};
