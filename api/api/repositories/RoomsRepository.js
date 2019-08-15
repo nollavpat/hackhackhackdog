@@ -2,7 +2,6 @@
 require('app-module-path').addPath(require('app-root-path').toString());
 require('dotenv').config();
 
-const {map} = require('lodash');
 const knex = require('knex')(require('knexfile'));
 
 /**

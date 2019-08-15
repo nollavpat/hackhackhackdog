@@ -1,11 +1,28 @@
 require('app-module-path').addPath(require('app-root-path').toString());
 const {
+  getReservationList,
   addNewReservation,
 } = require('api/repositories/ReservationsRepository');
 const {getRoomById} = require('api/repositories/RoomsRepository.js');
 const {calendarService} = require('api/utilities/CalendarServiceUtil.js');
 const {map} = require('lodash');
 const HttpSuccess = require('api/responses/HttpSuccess.js');
+
+/**
+ * @param {Object} req - Request Object
+ * @param {Object} res - Response Object
+ * @param {Object} next - Next function to be called
+ */
+async function getReservations(req, res, next) {
+  let result;
+  try {
+    result = await getReservationList();
+  } catch (dbError) {
+   console.log(dbError.message);
+  }
+  res.locals.respObj = new HttpSuccess(200, `Successfully Reserved a room`, {reservationList: result});
+  return next();
+}
 /**
  * @param {Object} req - Request Object
  * @param {Object} res - Response Object
@@ -69,4 +86,4 @@ async function PostReservations(req, res, next) {
   return next();
 }
 
-module.exports = {PostReservations};
+module.exports = {PostReservations, getReservations};

@@ -6,21 +6,19 @@ const knex = require('knex')(require('knexfile'));
 /**
  * Returns Array list of reservations
  */
-async function getReservations() {
-  const result = await knex.select().from('rooms');
-  return map(result, (data) => {
-    return {
-      id: data.id,
-      dateFrom: data.date_from,
-      dateTo: data.date_to,
-      roomId: data.room_id,
-      organizer: data.organizer,
-      attendees: JSON.parse(data.attendees),
-      description: data.description,
-      summary: data.summary,
-      reserved: JSON.parse(data.equipments),
-    };
-  });
+async function getReservationList() {
+  return await knex
+      .select(
+          'id',
+          'room_id as roomId',
+          'date_from as dateFrom',
+          'date_to as dateTo',
+          'organizer',
+          'attendees',
+          'description',
+          'summary'
+      )
+      .from('reservations');
 }
 /**
  * @param {integer} roomId - ID of the the selected room
@@ -53,6 +51,6 @@ async function addNewReservation(
 }
 
 module.exports = {
-  getReservations,
+  getReservationList,
   addNewReservation,
 };
