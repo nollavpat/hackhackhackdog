@@ -77,13 +77,13 @@ class CalendarService {
       endDate,
       sendNotification = false
   ) {
-    console.log(attendees);
     const result = await this._calendar.events.insert({
       auth: this._jwtClient,
       calendarId,
       resource: {
         summary: summary,
         description: description,
+        location: location,
         start: {
           dateTime: startDate,
           timeZone: 'GMT',
@@ -92,18 +92,17 @@ class CalendarService {
           dateTime: endDate,
           timeZone: 'GMT',
         },
+        attendees: attendees,
+        reminders: {
+          useDefault: false,
+          overrides: [
+            {method: 'email', minutes: 24 * 60},
+            {method: 'popup', minutes: 10},
+          ],
+        },
+        sendNotifications: true,
+        maxAttendees,
       },
-      attendees: attendees,
-      reminders: {
-        useDefault: false,
-        overrides: [
-          {method: 'email', minutes: 24 * 60},
-          {method: 'popup', minutes: 10},
-        ],
-      },
-      sendNotification: true,
-      location: location,
-      maxAttendees,
     });
     return result;
   }
