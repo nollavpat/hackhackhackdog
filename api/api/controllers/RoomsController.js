@@ -59,8 +59,8 @@ async function getRoomByRandomNum(req, res, next) {
   let r1;
   let r2;
   try {
-    r1 = await getRandomRoom(Math.trunc(Math.random() * 5));
-    r2 = await getRandomRoom(Math.trunc(Math.random() * 5));
+    r1 = await getRandomRoom(Math.trunc(Math.random() * 5) + 1);
+    r2 = await getRandomRoom(Math.trunc(Math.random() * 5) + 1);
   } catch (dbError) {
     console.log(dbError.messsage);
   }
