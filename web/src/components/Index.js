@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Carousel} from 'antd-mobile';
 
 import Banner from './Banner';
+import {imgs} from '../randomSeeds';
 
 const Index = ({history}) => {
   return (
@@ -33,12 +34,47 @@ const Index = ({history}) => {
           Enlist a room
         </Button>
       </Banner>
-      <Carousel dots autoplay infinite>
-        <img src="/img/1.jpg" alt="office 1" height="548" width="360" />
-        <img src="/img/2.jpg" alt="office 2" height="548" width="360" />
-        <img src="/img/3.jpg" alt="office 3" height="548" width="360" />
-        <img src="/img/4.jpg" alt="office 4" height="548" width="360" />
+      <div
+        style={{
+          width: '330px',
+          height: '160px',
+          textAlign: 'center',
+          verticalAlign: 'middle',
+          paddingTop: '60px',
+          fontSize: '18px',
+          paddingRight: '15px',
+          paddingLeft: '15px',
+          overflowWrap: 'break-word',
+          backgroundColor: '#00556b',
+          color: '#FFF',
+        }}
+      >
+        <div style={{fontStyle: 'italic'}}>
+          {`"It is a room that a person can only enter when they have real ` +
+            `need of it. Sometimes it is there, and sometimes it is not, but` +
+            ` when it appears, it is always equipped for the seeker's needs"`}
+        </div>
+        <div style={{textAlign: 'right'}}>- Dobby</div>
+      </div>
+      <Carousel dots autoplay infinite autoplayInterval="2000">
+        {imgs.map((url) => (
+          <img src={url} width="360" height="240" key={url} />
+        ))}
       </Carousel>
+      <div
+        style={{
+          width: '360px',
+          height: '88px',
+          lineHeight: '88px',
+          textAlign: 'center',
+          verticalAlign: 'middle',
+          backgroundColor: '#002a32',
+          color: '#00d6d6',
+          fontSize: '14px',
+        }}
+      >
+        © Copyright August 2019
+      </div>
     </div>
   );
 };
