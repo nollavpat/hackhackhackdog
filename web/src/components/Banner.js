@@ -26,9 +26,6 @@ const Banner = ({color, caption, backable, history, children}) => (
           color: '#FFF',
           backgroundColor: '#1A605E',
         }}
-        className="am-button-borderfix"
-        size="small"
-        inline
         onClick={() => {
           history.go(-1);
         }}

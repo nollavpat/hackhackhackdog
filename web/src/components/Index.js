@@ -36,7 +36,6 @@ const Index = ({history}) => {
       </Banner>
       <div
         style={{
-          width: '330px',
           height: '160px',
           textAlign: 'center',
           verticalAlign: 'middle',
@@ -63,7 +62,6 @@ const Index = ({history}) => {
       </Carousel>
       <div
         style={{
-          width: '360px',
           height: '88px',
           lineHeight: '88px',
           textAlign: 'center',
