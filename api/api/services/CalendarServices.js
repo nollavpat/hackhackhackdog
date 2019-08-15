@@ -65,7 +65,6 @@ class CalendarService {
     return result;
   }
 
-
   // eslint-disable-next-line require-jsdoc
   async addEvent(
       calendarId,
@@ -78,12 +77,13 @@ class CalendarService {
       endDate,
       sendNotification = false
   ) {
+    console.log(attendees);
     const result = await this._calendar.events.insert({
       auth: this._jwtClient,
       calendarId,
       resource: {
-        summary,
-        description,
+        summary: summary,
+        description: description,
         start: {
           dateTime: startDate,
           timeZone: 'GMT',
@@ -93,9 +93,16 @@ class CalendarService {
           timeZone: 'GMT',
         },
       },
+      attendees: attendees,
+      reminders: {
+        useDefault: false,
+        overrides: [
+          {method: 'email', minutes: 24 * 60},
+          {method: 'popup', minutes: 10},
+        ],
+      },
       sendNotification: true,
-      attendees: [attendees],
-      location,
+      location: location,
       maxAttendees,
     });
     return result;

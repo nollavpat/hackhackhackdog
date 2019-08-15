@@ -4,7 +4,7 @@ const {
 } = require('api/repositories/ReservationsRepository');
 const {getRoomById} = require('api/repositories/RoomsRepository.js');
 const {calendarService} = require('api/utilities/CalendarServiceUtil.js');
-
+const {map} = require('lodash');
 const HttpSuccess = require('api/responses/HttpSuccess.js');
 /**
  * @param {Object} req - Request Object
@@ -29,12 +29,20 @@ async function PostReservations(req, res, next) {
       console.log('Meeting room not found');
     }
     // ADDING EVENT TO GOOGLE CALENDAR
+    const attendeesData = [];
+
+    map(attendees, (data)=>{
+      return attendeesData.push({email: data});
+    });
+
+    console.log(attendeesData);
+
     try {
       await calendarService.addEvent(
           organizer,
           summary,
           description,
-          attendees,
+          attendeesData,
           room.locationAddress,
           room.roomCapacity,
           dateFrom,

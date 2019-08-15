@@ -47,6 +47,31 @@ async function getRoom(req, res, next) {
   return next();
 }
 
+
+/**
+ * @param {Object} req - Request Object
+ * @param {Object} res - Response Object
+ * @param {Object} next - Next function to be called
+ */
+async function getRoomByRandomNum(req, res, next) {
+  const roomList = [];
+  let room;
+  const rand = Math.trunc(Math.random() * 5);
+  try {
+    for (let i = 0; i < 2; i++) {
+      room = await getRoomById(rand);
+      roomList.push(room);
+    }
+  } catch (dbError) {
+    console.log(dbError.messsage);
+  }
+  res.locals.respObj = new HttpSuccess(
+      200,
+      'Successfully retrieved room details',
+      roomList
+  );
+  return next();
+}
 /**
  * @param {Object} req - Request Object
  * @param {Object} res - Response Object
@@ -82,4 +107,4 @@ async function postRoom(req, res, next) {
   return next();
 }
 
-module.exports = {getRooms, postRoom, getRoom};
+module.exports = {getRooms, postRoom, getRoom, getRoomByRandomNum};
