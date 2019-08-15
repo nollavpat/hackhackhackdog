@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, List, InputItem, DatePicker, Checkbox} from 'antd-mobile';
+import {Button, List, InputItem, Checkbox} from 'antd-mobile';
 
 import Banner from './Banner';
 

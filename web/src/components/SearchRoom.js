@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Button, List, InputItem, DatePicker} from 'antd-mobile';
 import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
 
@@ -32,8 +32,48 @@ const Cards = ({img, location}) => (
 );
 
 const SearchRoom = ({history}) => {
+  const [location, setLocation] = useState('');
+  const [date, setDate] = useState(null);
+  const [timeStart, setTimeStart] = useState(null);
+  const [timeEnd, setTimeEnd] = useState(null);
+  const [capacity, setCapacity] = useState(1);
+
   return (
     <div style={{background: '#59A18B', height: '100vh'}}>
+      <div style={{position: 'absolute', top: '10px', right: '10px'}}>
+        <Button
+          size="small"
+          onClick={() => {
+            let index = 0;
+            let x; // eslint-disable-line prefer-const
+            const parameters = [
+              'Pasig City, Manila',
+              new Date('August 18, 2019'),
+              new Date('August 18, 2019 13:00:00'),
+              new Date('August 18, 2019 15:00:00'),
+              2,
+              true,
+            ];
+            const functions = [
+              setLocation,
+              setDate,
+              setTimeStart,
+              setTimeEnd,
+              setCapacity,
+              () => {
+                clearInterval(x);
+              },
+            ];
+
+            x = setInterval(() => {
+              functions[index](parameters[index]);
+              index++;
+            }, 300);
+          }}
+        >
+          ?
+        </Button>
+      </div>
       <Banner caption="Room of Requirement" color="#1A605E">
         <Button
           inline
@@ -69,8 +109,10 @@ const SearchRoom = ({history}) => {
         }}
       >
         <List>
-          <InputItem>Location</InputItem>
-          <DatePicker locale={enUs} mode="date">
+          <InputItem value={location} onChange={setLocation}>
+            Location
+          </InputItem>
+          <DatePicker locale={enUs} mode="date" value={date} onChange={setDate}>
             <List.Item arrow="horizontal">Date</List.Item>
           </DatePicker>
         </List>
@@ -89,15 +131,27 @@ const SearchRoom = ({history}) => {
             </span>
           )}
         >
-          <DatePicker locale={enUs} mode="date">
+          <DatePicker
+            locale={enUs}
+            mode="time"
+            value={timeStart}
+            onChange={setTimeStart}
+          >
             <List.Item arrow="horizontal">Start</List.Item>
           </DatePicker>
-          <DatePicker locale={enUs} mode="date">
+          <DatePicker
+            locale={enUs}
+            mode="time"
+            value={timeEnd}
+            onChange={setTimeEnd}
+          >
             <List.Item arrow="horizontal">End</List.Item>
           </DatePicker>
         </List>
         <List>
-          <InputItem type="digit">Capacity</InputItem>
+          <InputItem type="digit" value={capacity} onChange={setCapacity}>
+            Capacity
+          </InputItem>
         </List>
       </div>
       <div
@@ -128,7 +182,7 @@ const SearchRoom = ({history}) => {
           }}
         >
           {getAllRandomSeed().map((pair) => (
-            <Cards img={pair.img} location={pair.location} />
+            <Cards img={pair.img} location={pair.location} key={pair.img} />
           ))}
         </div>
       </div>
@@ -150,6 +204,14 @@ const SearchRoom = ({history}) => {
           activeStyle={{
             background: '#FFF',
             color: '#000',
+          }}
+          onClick={() => {
+            history.push('/result', {
+              searchLocation: location,
+              searchDate: date,
+              searchTimeStart: timeStart,
+              searchTimeEnd: timeEnd,
+            });
           }}
         >
           FIND ROOM

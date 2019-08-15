@@ -1,5 +1,5 @@
-import React from 'react';
-import {Button, List, InputItem, DatePicker, WhiteSpace} from 'antd-mobile';
+import React, {useEffect, useState} from 'react';
+import {Button, List, InputItem, DatePicker} from 'antd-mobile';
 import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
 
 import Banner from './Banner';
@@ -29,6 +29,27 @@ const Card = () => (
 );
 
 const ResultRoom = ({history}) => {
+  const [location, setLocation] = useState('');
+  const [date, setDate] = useState(null);
+  const [timeStart, setTimeStart] = useState(null);
+  const [timeEnd, setTimeEnd] = useState(null);
+
+  useEffect(() => {
+    if (history.location.state) {
+      const {
+        searchLocation,
+        searchDate,
+        searchTimeStart,
+        searchTimeEnd,
+      } = history.location.state;
+
+      setLocation(searchLocation);
+      setDate(searchDate);
+      setTimeStart(searchTimeStart);
+      setTimeEnd(searchTimeEnd);
+    }
+  }, [history.location.state]);
+
   return (
     <div
       style={{
@@ -37,7 +58,12 @@ const ResultRoom = ({history}) => {
         paddingBottom: '20px',
       }}
     >
-      <Banner caption="Meeting Rooms" color="#1A605E" backable>
+      <Banner
+        caption="Meeting Rooms"
+        color="#1A605E"
+        backable
+        history={history}
+      >
         <Button
           inline
           size="small"
@@ -67,8 +93,10 @@ const ResultRoom = ({history}) => {
       <List
         style={{marginLeft: '20px', marginRight: '20px', marginTop: '20px'}}
       >
-        <InputItem>Location</InputItem>
-        <DatePicker locale={enUs} mode="date">
+        <InputItem value={location} onChange={setLocation}>
+          Location
+        </InputItem>
+        <DatePicker locale={enUs} mode="date" value={date} onChange={setDate}>
           <List.Item arrow="horizontal">Date</List.Item>
         </DatePicker>
       </List>
@@ -87,10 +115,20 @@ const ResultRoom = ({history}) => {
           </span>
         )}
       >
-        <DatePicker locale={enUs} mode="date">
+        <DatePicker
+          locale={enUs}
+          mode="time"
+          value={timeStart}
+          onChange={setTimeStart}
+        >
           <List.Item arrow="horizontal">Start</List.Item>
         </DatePicker>
-        <DatePicker locale={enUs} mode="date">
+        <DatePicker
+          locale={enUs}
+          mode="time"
+          value={timeEnd}
+          onChange={setTimeEnd}
+        >
           <List.Item arrow="horizontal">End</List.Item>
         </DatePicker>
       </List>
