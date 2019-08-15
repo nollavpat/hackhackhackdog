@@ -59,7 +59,6 @@ async function getRoomByRandomNum(req, res, next) {
   const rand = Math.trunc(Math.random() * 5);
   try {
     for (let i = 0; i < 2; i++) {
-      console.log(rand);
       room = await getRoomById(rand);
       roomList.push(room);
     }
