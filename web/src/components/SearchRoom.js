@@ -59,7 +59,7 @@ const SearchRoom = ({history}) => {
       </Banner>
       <div
         style={{
-          paddingTop: '222px',
+          paddingTop: '20px',
           paddingRight: '20px',
           paddingLeft: '20px',
         }}

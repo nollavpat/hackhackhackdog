@@ -15,7 +15,7 @@ const EnlistRoom = ({history}) => {
       />
       <div
         style={{
-          paddingTop: '222px',
+          paddingTop: '20px',
           paddingRight: '10px',
           paddingLeft: '10px',
         }}

@@ -9,9 +9,6 @@ const Banner = ({color, caption, backable, history, children}) => (
       margin: 0,
       height: '192px',
       background: color,
-      position: 'fixed',
-      top: 0,
-      zIndex: 1,
     }}
   >
     {backable && (
