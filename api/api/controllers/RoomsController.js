@@ -57,9 +57,10 @@ async function getRoom(req, res, next) {
 async function getRoomByRandomNum(req, res, next) {
   const roomList = [];
   let room;
+  const rand = Math.trunc(Math.random() * 5);
   try {
     for (let i = 1; i <=2; i++) {
-      room = await getRandomRoom(i);
+      room = await getRandomRoom(rand);
       roomList.push(room);
     }
   } catch (dbError) {
