@@ -25,6 +25,9 @@ const Index = ({history}) => {
           marginLeft: '8px',
           borderRadius: '51.5px',
         }}
+        onClick={() => {
+          history.push('/enlist');
+        }}
       >
         Enlist a room
       </Button>

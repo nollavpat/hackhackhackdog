@@ -1,11 +1,44 @@
 import React from 'react';
-import {WingBlank} from 'antd-mobile';
+import {WingBlank, Button} from 'antd-mobile';
 
-const Banner = ({color, caption, children}) => (
+const Banner = ({color, caption, backable, history, children}) => (
   <WingBlank
     size="sm"
-    style={{padding: 0, margin: 0, height: '192px', background: color}}
+    style={{
+      padding: 0,
+      margin: 0,
+      height: '192px',
+      background: color,
+      position: 'fixed',
+      top: 0,
+      zIndex: 1,
+    }}
   >
+    {backable && (
+      <Button
+        style={{
+          marginLeft: '20px',
+          marginTop: '20px',
+          color: '#FFF',
+          backgroundColor: '#59A18B',
+        }}
+        className="am-button-borderfix"
+        size="small"
+        inline
+        activeStyle={{
+          color: '#FFF',
+          backgroundColor: '#1A605E',
+        }}
+        className="am-button-borderfix"
+        size="small"
+        inline
+        onClick={() => {
+          history.go(-1);
+        }}
+      >
+        back
+      </Button>
+    )}
     <div
       style={{
         fontSize: '36px',
@@ -19,9 +52,7 @@ const Banner = ({color, caption, children}) => (
     >
       {caption}
     </div>
-    <div style={{marginTop: '5px', marginLeft: '18px'}}>
-      {children}
-    </div>
+    <div style={{marginTop: '5px', marginLeft: '18px'}}>{children}</div>
   </WingBlank>
 );
 

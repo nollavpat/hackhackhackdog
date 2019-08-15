@@ -4,7 +4,30 @@ import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
 
 import Banner from './Banner';
 
-const SearchRoom = () => {
+const Cards = () => (
+  <div style={{padding: '10px'}}>
+    <div
+      style={{
+        height: '100px',
+        width: '100px',
+        background: 'green',
+      }}
+    >
+      a
+    </div>
+    <div
+      style={{
+        height: '20px',
+        width: '100px',
+        background: 'white',
+      }}
+    >
+      a
+    </div>
+  </div>
+);
+
+const SearchRoom = ({history}) => {
   return (
     <div style={{background: '#59A18B', height: '100vh'}}>
       <Banner caption="Room of Requirement" color="#1A605E">
@@ -14,9 +37,11 @@ const SearchRoom = () => {
           style={{
             borderRadius: '51.5px',
           }}
-          disabled
+          onClick={() => {
+            history.push('/');
+          }}
         >
-          Search room
+          Home
         </Button>
         <Button
           inline
@@ -25,19 +50,22 @@ const SearchRoom = () => {
             marginLeft: '8px',
             borderRadius: '51.5px',
           }}
+          onClick={() => {
+            history.push('/enlist');
+          }}
         >
           Enlist a room
         </Button>
       </Banner>
       <div
         style={{
-          paddingTop: '30px',
-          paddingRight: '10px',
-          paddingLeft: '10px',
+          paddingTop: '222px',
+          paddingRight: '20px',
+          paddingLeft: '20px',
         }}
       >
         <List>
-          <InputItem>Area</InputItem>
+          <InputItem>Location</InputItem>
           <DatePicker locale={enUs} mode="date">
             <List.Item arrow="horizontal">Date</List.Item>
           </DatePicker>
@@ -46,7 +74,12 @@ const SearchRoom = () => {
           style={{marginBottom: '20px'}}
           renderHeader={() => (
             <span
-              style={{color: 'white', fontWeight: '600', fontSize: '14px'}}
+              style={{
+                color: 'white',
+                fontWeight: '400',
+                fontSize: '14px',
+                marginLeft: '-10px',
+              }}
             >
               Duration
             </span>
@@ -60,8 +93,68 @@ const SearchRoom = () => {
           </DatePicker>
         </List>
         <List>
-          <InputItem type="number">Capacity</InputItem>
+          <InputItem type="digit">Capacity</InputItem>
         </List>
+      </div>
+      <div
+        style={{
+          paddingTop: '20px',
+          paddingRight: '10px',
+          paddingLeft: '10px',
+        }}
+      >
+        <span
+          style={{
+            color: 'white',
+            fontWeight: '400',
+            fontSize: '14px',
+          }}
+        >
+          Meeting rooms near you
+        </span>
+        <div
+          style={{
+            marginTop: '10px',
+            height: '140px',
+            width: '100%',
+            textAlign: 'center',
+            display: 'flex',
+            overflowX: 'auto',
+            justifyContent: 'flex-start',
+          }}
+        >
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+          <Cards />
+        </div>
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          right: '0',
+          bottom: '0',
+          width: '100vw',
+          margin: 0,
+          padding: 0,
+        }}
+      >
+        <Button
+          style={{
+            background: '#1A605E',
+            color: '#FFF',
+          }}
+          activeStyle={{
+            background: '#FFF',
+            color: '#000',
+          }}
+        >
+          FIND ROOM
+        </Button>
       </div>
     </div>
   );
