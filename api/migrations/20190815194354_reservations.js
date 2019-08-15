@@ -7,8 +7,7 @@ exports.up = function(knex) {
     t.string('organizer').notNullable();
     t.json('attendees').notNullable();
     t.string('description').notNullable();
-    t.json('summary').notNullable();
-    t.boolean('reserved').defaultTo(false);
+    t.string('summary').notNullable();
   });
 };
 

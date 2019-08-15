@@ -9,6 +9,7 @@ exports.up = function(knex) {
     t.string('room_type').notNullable();
     t.json('equipments').notNullable();
     t.float('hourly_rate').notNullable();
+    t.boolean('reserved').defaultTo(false);
   });
 };
 

@@ -1,6 +1,6 @@
 require('app-module-path').addPath(require('app-root-path').toString());
 require('dotenv').config();
-const TAG = '[RoomsRepository]';
+
 const {map} = require('lodash');
 const knex = require('knex')(require('knexfile'));
 
@@ -8,9 +8,6 @@ const knex = require('knex')(require('knexfile'));
  * Returns Array list of rooms
  */
 async function getRoomList() {
-  const METHOD = '[getRoomList]';
-  console.log(`${TAG} ${METHOD}`);
-
   const result = await knex.select().from('rooms');
   return map(result, (data) => {
     return {

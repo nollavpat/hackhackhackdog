@@ -52,7 +52,6 @@ class CalendarService {
     return result;
   }
 
-
   /**
    * Adds new event in the calendar
    * @param {String} calendarId - Unique identifier of User's calendar
@@ -66,19 +65,9 @@ class CalendarService {
     return result;
   }
 
-  /**
-   *
-   * @param {Object} eventDetails - Required eventDetails
-   * @param {String} eventDetails.calendarId - Unique
-   *  identifier of User's calendar
-   * @param {String} eventDetails.summary - Summary of the event
-   * @param {String} eventDetails.description - Description of the event
-   * @param {dateTime} eventDetails.startDate - Start date and time of the event
-   * @param {dateTime} eventDetails.endDate - End date and time of the event
-   * @param {boolean} sendNotification - Sends notification to the attendees
-   */
-  async addEvent(eventDetails, sendNotification = false) {
-    const {
+
+  // eslint-disable-next-line require-jsdoc
+  async addEvent(
       calendarId,
       summary,
       description,
@@ -87,15 +76,11 @@ class CalendarService {
       maxAttendees,
       startDate,
       endDate,
-    } = eventDetails;
-
+      sendNotification = false
+  ) {
     const result = await this._calendar.events.insert({
       auth: this._jwtClient,
       calendarId,
-      sendNotification: true,
-      attendees: [attendees],
-      location,
-      maxAttendees,
       resource: {
         summary,
         description,
@@ -108,6 +93,10 @@ class CalendarService {
           timeZone: 'GMT',
         },
       },
+      sendNotification: true,
+      attendees: [attendees],
+      location,
+      maxAttendees,
     });
     return result;
   }
