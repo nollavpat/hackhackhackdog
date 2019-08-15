@@ -33,7 +33,6 @@ async function PostReservations(req, res, next) {
         dateTo,
         true,
     );
-
     // SAVING TO DATABASE
     await addNewReservation(
         roomId,
