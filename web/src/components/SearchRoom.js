@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, List, InputItem, DatePicker} from 'antd-mobile';
 import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
 
 import Banner from './Banner';
+import {getAllRandomSeed} from '../randomSeeds';
 
-const Cards = () => (
-  <div style={{padding: '10px'}}>
+const Cards = ({img, location}) => (
+  <div style={{padding: '10px', borderRadius: '50px'}}>
     <div
       style={{
         height: '100px',
@@ -13,16 +14,19 @@ const Cards = () => (
         background: 'green',
       }}
     >
-      a
+      <img src={img} width="100" height="100" alt="office" />
     </div>
     <div
       style={{
         height: '20px',
         width: '100px',
         background: 'white',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
       }}
     >
-      a
+      {location}
     </div>
   </div>
 );
@@ -123,14 +127,9 @@ const SearchRoom = ({history}) => {
             justifyContent: 'flex-start',
           }}
         >
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
-          <Cards />
+          {getAllRandomSeed().map((pair) => (
+            <Cards img={pair.img} location={pair.location} />
+          ))}
         </div>
       </div>
       <div

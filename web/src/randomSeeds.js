@@ -23,3 +23,10 @@ export const getRandomSeed = () => {
 
   return {image: imgs[idx], location: location[idx]};
 };
+
+export const getAllRandomSeed = () => {
+  return location.map((l, i) => ({
+    img: imgs[i],
+    location: l,
+  }));
+};

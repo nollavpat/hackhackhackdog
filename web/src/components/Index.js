@@ -58,7 +58,7 @@ const Index = ({history}) => {
       </div>
       <Carousel dots autoplay infinite autoplayInterval="2000">
         {imgs.map((url) => (
-          <img src={url} width="360" height="240" key={url} />
+          <img src={url} width="360" height="240" key={url} alt="office" />
         ))}
       </Carousel>
       <div

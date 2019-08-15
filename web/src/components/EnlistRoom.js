@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, List, InputItem, DatePicker, Checkbox} from 'antd-mobile';
-import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
 
 import Banner from './Banner';
 
@@ -78,7 +77,7 @@ const EnlistRoom = ({history}) => {
               fontSize: '14px',
             }}
           >
-            Meeting rooms near you
+            Add photos
           </span>
           <div style={{marginTop: '10px', marginBottom: '10px'}}>
             <div style={{height: '150px', width: '320px', display: 'flex'}}>
@@ -90,7 +89,12 @@ const EnlistRoom = ({history}) => {
                   backgroundColor: '#000',
                 }}
               >
-                a
+                <img
+                  src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                  alt="office 1"
+                  height="150"
+                  width="150"
+                />
               </div>
               <div
                 style={{
@@ -99,7 +103,12 @@ const EnlistRoom = ({history}) => {
                   backgroundColor: '#000',
                 }}
               >
-                a
+                <img
+                  src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                  alt="office 1"
+                  height="150"
+                  width="150"
+                />
               </div>
             </div>
             <div
@@ -118,7 +127,12 @@ const EnlistRoom = ({history}) => {
                   backgroundColor: '#000',
                 }}
               >
-                a
+                <img
+                  src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                  alt="office 1"
+                  height="150"
+                  width="150"
+                />
               </div>
               <div
                 style={{
@@ -127,7 +141,12 @@ const EnlistRoom = ({history}) => {
                   backgroundColor: '#000',
                 }}
               >
-                a
+                <img
+                  src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                  alt="office 1"
+                  height="150"
+                  width="150"
+                />
               </div>
             </div>
           </div>
