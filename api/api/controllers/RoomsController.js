@@ -22,7 +22,7 @@ async function getRooms(req, res, next) {
   res.locals.respObj = new HttpSuccess(
       200,
       'Successfully retrieved room list',
-      rooms
+      {roomList: rooms}
   );
   return next();
 }
