@@ -7,5 +7,41 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "app-module-path": "^2.2.0",
+    "app-root-path": "^2.2.1",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "googleapis": "^39.2.0",
+    "knex": "^0.19.1",
+    "mysql": "^2.17.1",
+    "otp-generator": "^1.1.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "google"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "rules": {
+      "linebreak-style": [
+        "error",
+        "windows"
+      ]
+    },
+    "env": {
+      "browser": true,
+      "es6": true,
+      "mocha": true,
+      "node": true
+    }
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-google": "^0.13.0"
+  }
 }
