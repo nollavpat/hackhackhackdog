@@ -26,6 +26,27 @@ async function getRoomList() {
   });
 }
 
+/**
+ * Returns Array list of rooms
+ */
+async function getRandomRoom(id) {
+  const result = await knex.where({id}).select().from('rooms');
+  return map(result, (data) => {
+    return {
+      id: data.id,
+      locationAddress: data.location_address,
+      propertyType: data.property_type,
+      buildingName: data.building_name,
+      roomType: data.room_type,
+      roomFloor: data.room_floor,
+      roomCapacity: data.room_capacity,
+      equipments: JSON.parse(data.equipments),
+      hourlyRate: data.hourly_rate,
+      reserved: data.reserved,
+    };
+  });
+}
+
 // eslint-disable-next-line require-jsdoc
 async function getRoomById(id) {
   const data = await knex
@@ -80,4 +101,4 @@ async function addRoom(
   return await knex('rooms').insert(newRoom);
 }
 
-module.exports = {getRoomList, addRoom, getRoomById};
+module.exports = {getRandomRoom, getRoomList, addRoom, getRoomById};

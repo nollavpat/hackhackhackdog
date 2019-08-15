@@ -3,6 +3,7 @@ const {
   getRoomList,
   addRoom,
   getRoomById,
+  getRandomRoom,
 } = require('api/repositories/RoomsRepository.js');
 const HttpSuccess = require('api/responses/HttpSuccess.js');
 
@@ -56,15 +57,15 @@ async function getRoom(req, res, next) {
 async function getRoomByRandomNum(req, res, next) {
   const roomList = [];
   let room;
-  const rand = Math.trunc(Math.random() * 5);
   try {
-    for (let i = 0; i < 2; i++) {
-      room = await getRoomById(rand);
+    for (let i = 1; i <=2; i++) {
+      room = await getRandomRoom(i);
       roomList.push(room);
     }
   } catch (dbError) {
     console.log(dbError.messsage);
   }
+  console.log('room list', roomList);
   res.locals.respObj = new HttpSuccess(
       200,
       'Successfully retrieved room details',
