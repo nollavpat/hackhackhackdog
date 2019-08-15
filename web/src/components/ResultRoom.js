@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Button, List, InputItem, DatePicker} from 'antd-mobile';
 import enUs from 'antd-mobile/lib/date-picker/locale/en_US';
+import axios from 'axios';
 
 import Banner from './Banner';
+import {getRandomSeed} from '../randomSeeds';
 
-const Card = () => (
+const Card = ({location, image, equipments}) => (
   <div
     style={{
       display: 'flex',
@@ -13,15 +15,15 @@ const Card = () => (
       marginTop: '20px',
     }}
   >
-    <div style={{width: '160px', height: '140px', background: '#000'}}>a</div>
+    <div style={{width: '160px', height: '140px', background: '#000'}}>
+      <img src={image} height="140" width="140" alt="office" />
+    </div>
     <div style={{width: '160px', height: '140px', color: '#FFF'}}>
-      <div style={{fontSize: '12px', wordWrap: 'break-word'}}>
-        MR34A, Floor 34, Unionbank Plaza.
-      </div>
+      <div style={{fontSize: '12px', wordWrap: 'break-word'}}>{location}</div>
       <ul>
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li>
+        {JSON.parse(equipments).map((e, i) => (
+          <li key={i}>{e}</li>
+        ))}
       </ul>
       <Button size="small">Reserve now</Button>
     </div>
@@ -33,6 +35,7 @@ const ResultRoom = ({history}) => {
   const [date, setDate] = useState(null);
   const [timeStart, setTimeStart] = useState(null);
   const [timeEnd, setTimeEnd] = useState(null);
+  const [result, setResult] = useState([]);
 
   useEffect(() => {
     if (history.location.state) {
@@ -48,6 +51,15 @@ const ResultRoom = ({history}) => {
       setTimeStart(searchTimeStart);
       setTimeEnd(searchTimeEnd);
     }
+
+    const fetchData = async () => {
+      const result = await axios.get(
+          'http://127.0.0.1:8080/api/ror/rooms/random'
+      );
+      setResult(result.data.roomList);
+    };
+
+    fetchData();
   }, [history.location.state]);
 
   return (
@@ -139,8 +151,14 @@ const ResultRoom = ({history}) => {
           paddingLeft: '10px',
         }}
       >
-        <Card />
-        <Card />
+        {result.map((data, i) => data && (
+          <Card
+            key={i}
+            location={data.locationAddress}
+            image={getRandomSeed().image}
+            equipments={data.equipments}
+          />
+        ))}
       </div>
     </div>
   );
