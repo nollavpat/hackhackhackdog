@@ -11,14 +11,14 @@ async function getRoomList() {
   const METHOD = '[getRoomList]';
   console.log(`${TAG} ${METHOD}`);
 
-  const result = await knex
-      .select()
-      .from('rooms');
+  const result = await knex.select().from('rooms');
   return map(result, (data) => {
     return {
+      id: data.id,
       locationAddress: data.location_address,
       propertyType: data.property_type,
       buildingName: data.building_name,
+      roomType: data.room_type,
       roomFloor: data.room_floor,
       roomCapacity: data.room_capacity,
       equipments: JSON.parse(data.equipments),
@@ -28,4 +28,40 @@ async function getRoomList() {
   });
 }
 
-module.exports = {getRoomList};
+/**
+ *
+ * @param {String} locationAddress - Location address
+ * @param {String} propertyType - Property type
+ * @param {String} buildingName - Building name
+ * @param {String} roomFloor  - Room floor
+ * @param {String} roomType - Room type
+ * @param {Integer} roomCapacity  - Room capacity
+ * @param {Array} equipments - Equipments
+ * @param {Integer} hourlyRate  - Hourly rates
+ */
+async function addRoom(
+    locationAddress,
+    propertyType,
+    buildingName,
+    roomFloor,
+    roomType,
+    roomCapacity,
+    equipments,
+    hourlyRate
+) {
+  const newRoom = {
+    location_address: locationAddress,
+    property_type: propertyType,
+    building_name: buildingName,
+    room_type: roomType,
+    room_floor: roomFloor,
+    room_capacity: roomCapacity,
+    equipments,
+    hourly_rate: hourlyRate,
+  };
+  return await knex('rooms').insert(newRoom);
+}
+
+module.exports = {getRoomList, addRoom};
+
+

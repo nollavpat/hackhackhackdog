@@ -1,7 +1,6 @@
 require('app-module-path').addPath(require('app-root-path').toString());
-const {getRoomList} = require('api/repositories/RoomsRepository.js');
+const {getRoomList, addRoom} = require('api/repositories/RoomsRepository.js');
 const HttpSuccess = require('api/responses/HttpSuccess.js');
-const TAG = '[RoomsController]';
 
 /**
  * @param {Object} req - Request Object
@@ -9,8 +8,6 @@ const TAG = '[RoomsController]';
  * @param {Object} next - Next function to be called
  */
 async function getRooms(req, res, next) {
-  const METHOD = '[getRooms]';
-  console.log(`${TAG} ${METHOD}`);
   let rooms;
   try {
     rooms = await getRoomList();
@@ -19,9 +16,48 @@ async function getRooms(req, res, next) {
   }
   res.locals.respObj = new HttpSuccess(
       200,
+      'Successfully retrieved room list',
       rooms
   );
   return next();
 }
 
-module.exports = {getRooms};
+/**
+ * @param {Object} req - Request Object
+ * @param {Object} res - Response Object
+ * @param {Object} next - Next function to be called
+ */
+async function postRoom(req, res, next) {
+  const {
+    locationAddress,
+    propertyType,
+    buildingName,
+    roomFloor,
+    roomType,
+    roomCapacity,
+    equipments,
+    hourlyRate,
+  } = req.body;
+
+  try {
+    await addRoom(
+        locationAddress,
+        propertyType,
+        buildingName,
+        roomFloor,
+        roomType,
+        roomCapacity,
+        JSON.stringify(equipments),
+        hourlyRate
+    );
+  } catch (dbError) {
+    console.log(dbError.message);
+  }
+  res.locals.respObj = new HttpSuccess(
+      200,
+      'Successfully added new room',
+  );
+  return next();
+}
+
+module.exports = {getRooms, postRoom};
