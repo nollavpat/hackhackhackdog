@@ -18,7 +18,7 @@
     "googleapis": "^39.2.0",
     "knex": "^0.19.1",
     "mysql": "^2.17.1",
-    "otp-generator": "^1.1.0"
+    "otp-generator": "^3.0.0"
   },
   "eslintConfig": {
     "extends": [
